@@ -98,6 +98,9 @@ export default class Meter extends  Core {
             case Commands.aliasSetup:
                 this.aliasSetup()
                 break;
+            case Commands.createNativeApp:
+                this.createNativeApp()
+                break;
 
             // audion
             case Commands.AudioRecord:

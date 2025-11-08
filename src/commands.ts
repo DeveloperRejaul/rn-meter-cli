@@ -29,6 +29,7 @@ export enum Commands {
     eslintSetup = 'setup-eslint',
     vscodeConfigSetup = 'setup-vscode-config',
     aliasSetup = 'setup-alias',
+    createNativeApp = 'create-native-app',
 
 
     // app build setup
