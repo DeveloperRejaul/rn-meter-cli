@@ -4,7 +4,8 @@ Introducing our comprehensive React Native UI library, designed to streamline yo
 ![Alternative Text](./screenshots/demo.jpg)
 
 ## Create App With React Native meter
-```
+
+```sh
 npx rn-meter create app
 ```
 ## Initialize cli configuration  
