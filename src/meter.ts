@@ -98,7 +98,7 @@ export default class Meter extends  Core {
             case Commands.aliasSetup:
                 this.aliasSetup()
                 break;
-            case Commands.createNativeApp:
+            case Commands.createApp:
                 this.createNativeApp()
                 break;
 

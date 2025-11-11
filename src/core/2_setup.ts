@@ -263,7 +263,7 @@ export class Setup  extends Audio {
             },
         ])
 
-        const templatePath = path.resolve(this.getLibraryRootPath(), "../app/core");
+        const templatePath = path.resolve(this.getLibraryRootPath(),   `../app/core/${ans.project === 'expo' ? 'expo' :"cli"}`);
         const navigationPath = path.resolve(this.getLibraryRootPath(), "../app/navigation");
         const rtkPath = path.resolve(this.getLibraryRootPath(), "../app/rtk");
 
@@ -296,7 +296,7 @@ export class Setup  extends Audio {
         }
 
         if(ans.rtk) {
-             await fs.cp(path.join(this.getLibraryRootPath(), "..", 'app', 'rtk'),  path.join(targetPath, 'src', 'core', 'rtk'),{ recursive: true })
+            await fs.cp(path.join(this.getLibraryRootPath(), "..", 'app', 'rtk'),  path.join(targetPath, 'src', 'core', 'rtk'),{ recursive: true })
         }
        
     }
