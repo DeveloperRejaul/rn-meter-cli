@@ -147,20 +147,23 @@ export class Utils {
      *  @description this function using execute npx command
      */
     async executeNpx(command: string) {
-        return new Promise((res, rej) => {
-            const spinier = ora(`Loading ${chalk.blue(`Exexute: ${command}`)}`).start()
-            exec(command, (error: ExecException | null, stdout: string, stderr: string) => {
-                if (error) {
-                    console.log(error);
-                    spinier.fail(chalk.red(error.message)).stop()
-                    rej()
-                };
-                console.log(stdout);
-                console.log(stderr);
-                spinier.succeed(chalk.green('Done all task')).stop()
-                res(null)
+        try {
+            return new Promise((res, rej) => {
+                const spinier = ora(`Loading ${chalk.blue(`Exexute: ${command}`)}`).start()
+                exec(command, (error: ExecException | null, stdout: string, stderr: string) => {
+                    if (error) {
+                        spinier.fail(chalk.red(error.message)).stop()
+                        rej(error)
+                    };
+                    console.log(stdout);
+                    console.log(stderr);
+                    spinier.succeed(chalk.green('Done all task')).stop()
+                    res(null)
+                })
             })
-        })
+        } catch (error) {
+            console.log(error);
+        }
     }
 
 
@@ -230,5 +233,14 @@ export class Utils {
             console.log(chalk.red("Library configuration not exists"));
             console.log(chalk.blue("Run: npx rn-meter init "));
         }
+    }
+
+
+    getLibraryRootPath () {
+        return path.resolve(__dirname)
+    }
+
+    getUserRootPath () {
+        return path.resolve(process.cwd())
     }
 }

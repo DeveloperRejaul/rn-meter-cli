@@ -214,4 +214,90 @@ export class Setup  extends Audio {
         const vsPath = path.join('.vscode', "settings.json")
         await fs.writeFile(vsPath, vscodeJsonContent())
     }
-}
+
+    async createNativeApp() {
+        const ans = await inquirer.prompt([
+            {
+                type: 'input',
+                name: 'project_name',
+                message: 'Type your project name',
+                default: "AwesomeApp"
+            },
+            {
+                type: 'select',
+                name: 'project',
+                message: 'select one',
+                choices: ['expo','cli']
+            },
+            {
+                type: 'confirm',
+                name: 'navigation',
+                message: 'Are you use react navigation ??',
+            },
+            {
+                type: 'confirm',
+                name: 'redux',
+                message: 'Are you use redux toolkit',
+            },
+            {
+                type: 'confirm',
+                name: 'rtk',
+                message: 'Are you use rtk',
+            },
+            {
+                type: 'input',
+                name: 'rtk_base_url',
+                message: 'What your base url ??',
+                when: (answers) => answers.rtk === true,
+            },
+            {
+                type: 'confirm',
+                name: 'svg',
+                message: 'Are you use react native svg ??',
+            },
+            {
+                type: 'select',
+                name: 'node_module',
+                message: 'select one',
+                choices: ['npm','yarn','pnpm']
+            },
+        ])
+
+        const templatePath = path.resolve(this.getLibraryRootPath(),   `../app/core/${ans.project === 'expo' ? 'expo' :"cli"}`);
+        const navigationPath = path.resolve(this.getLibraryRootPath(), "../app/navigation");
+        const rtkPath = path.resolve(this.getLibraryRootPath(), "../app/rtk");
+
+
+        const targetPath = path.resolve(this.getUserRootPath(), ans.project_name);
+
+        // Copy all files
+        await fs.cp(templatePath, targetPath, { recursive: true });
+        
+        // create src folder
+        await fs.mkdir(path.join(targetPath, 'src'))
+        await fs.mkdir(path.join(targetPath, 'src', 'core'))
+        await fs.mkdir(path.join(targetPath, 'src','core', 'components'))
+        await fs.mkdir(path.join(targetPath, 'src','core', 'utils'))
+        await fs.mkdir(path.join(targetPath, 'src','core', 'hooks'))
+
+        await fs.mkdir(path.join(targetPath, 'src', 'features'))
+
+        // handle navigation
+        if(ans.navigation){
+            // delete courant app file
+            await fs.unlink(path.join(targetPath, 'App.tsx'))
+            
+            // create navigation folder 
+            await fs.mkdir(path.join(targetPath, 'src', 'core', 'navigation'))
+            await fs.cp(path.join(this.getLibraryRootPath(), "..", 'app', 'navigation', 'main'),  path.join(targetPath, 'src', 'core', 'navigation'),{ recursive: true })
+
+            // over write app.tsx file
+            await fs.cp(path.join(this.getLibraryRootPath(), "..", 'app', 'navigation', 'App.tsx'),  path.join(targetPath,"App.tsx"),{ recursive: true })
+        }
+
+        if(ans.rtk) {
+            await fs.cp(path.join(this.getLibraryRootPath(), "..", 'app', 'rtk'),  path.join(targetPath, 'src', 'core', 'rtk'),{ recursive: true })
+        }
+       
+    }
+} 

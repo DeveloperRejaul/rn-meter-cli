@@ -461,7 +461,7 @@ npx rn-meter add carousal
 npx rn-meter add keyboardAvoidingScrollView 
 ```
 
-#### Bottom  Sheet
+#### Bottom Sheet
 ```
 npx rn-meter add bottom sheet 
 ```
