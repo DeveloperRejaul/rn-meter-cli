@@ -22,6 +22,7 @@ npx rn-meter init
 
 - [Installation](#initialize-cli-configuration)
 - [Configuration](#configuration)
+    - [Create app with rn meter](#create-app)
     - [Theme Setup](#theme-setup)
     - [Eslint Setup](#eslint-setup)
     - [Vs Code Configuration Setup](#vs-code-configuration-setup)
@@ -70,6 +71,12 @@ npx rn-meter init
 - [Links](#links)
 - [Authors](#authors)
 - [License](#license)
+
+## Create App With React Native meter
+### Crate App
+```
+npx rn-meter create app
+```
 
 ## Configuration
 ### Theme Setup
