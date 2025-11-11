@@ -47,10 +47,8 @@ jobs:
       - name: 📝 Get full last commit message (with markdown)
         id: release_notes
         run: |
-          echo "RELEASE_NOTES<<EOF" >> $GITHUB_ENV
-          git log -1 --pretty=format:%B >> $GITHUB_ENV
-          echo "EOF" >> $GITHUB_ENV
-          echo "" >> $GITHUB_ENV
+          RELEASE_NOTES="$(git log -1 --pretty=format:%B)"
+          printf "RELEASE_NOTES<<EOF\n%s\nEOF\n" "$RELEASE_NOTES" >> $GITHUB_ENV
 
       - name: 📢 Create GitHub Release
         uses: softprops/action-gh-release@v2
